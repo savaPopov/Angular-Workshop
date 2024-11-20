@@ -3,12 +3,12 @@ import { User } from "./user";
 
 // Interface for each Theme
 export interface Theme {
-    subscribers: string[];  // Array of user IDs
-    posts: string[]; //Post       // Array of post IDs
-    _id: string;            // Theme ID
-    themeName: string;      // Name of the theme
-    userId: User;           // Embedded User object
+    subscribers: string[];
+    posts: Post[];
+    _id: string;
+    themeName: string;
+    userId: User;
     created_at: string;
     updatedAt: string;
     __v: number;
-}
+  }
