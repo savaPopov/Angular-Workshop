@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { DOMAINS } from '../../constants';
 import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
@@ -39,6 +40,8 @@ export class RegisterComponent {
 
 
   });
+
+  constructor(private userService: UserService, private router: Router) { }
 
   isFieldTextMissing(controlName: string) {
 
@@ -76,7 +79,13 @@ export class RegisterComponent {
     if (this.form.invalid) {
       return
     }
-
+    const { username, email, tel, passGroup: { password, rePassword } = {} } = this.form.value
     console.log(this.form.value)
+
+    this.userService.register(username!, email!, tel!, password!, rePassword!).subscribe((a) => {
+      console.log(a)
+      this.router.navigate(['/themes'])
+
+    })
   }
 }
